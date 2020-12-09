@@ -5,4 +5,4 @@ Feito com html, css e javascript. O meu maior desafio foi lidar com o localStora
 
 ## Preview
 
-![](/img/preview-todolist.png)
+![](/img/preview-todo.png)
