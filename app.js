@@ -1,5 +1,3 @@
-// localStorage.clear()
-
 const inputElement = document.querySelector('#task-input')
 const listElement = document.querySelector('#list')
 const addButton = document.querySelector('#add-task')
@@ -27,6 +25,10 @@ function getInput() {
 }
 
 function setListItem(task, key) {
+  if(!task){
+    inputElement.focus()
+    return
+  }
   return {
     item: ` <li class="list-item" id="${key}">
       <p class="item-text">${task}</p>
@@ -38,7 +40,6 @@ function setListItem(task, key) {
 }
 
 function addTask() {
-  // console.log('add');
   const task = getInput()
   const item = setListItem(task, storageTasks.size).item
   const key = setListItem(task, storageTasks.size).key
@@ -56,26 +57,22 @@ function setLocalStorageTask(task,key) {
 
   const data = JSON.stringify(storageTasks)
   localStorage.setItem('data', data)
-  // console.log(storageTasks)
 }
 
 function deleteTask(element) {
   const item = element.parentElement
-  // console.log(item);
   item.remove()
   const key = item.getAttribute('id')
   const index = storageTasks.keys.indexOf(key)
   console.log(key)
-  // console.log(index)
 
   storageTasks.keys.splice(index, 1)
   storageTasks.tasks.splice(index, 1)
   storageTasks.size--
 
-  // console.log(storageTasks)
-
   localStorage.clear()
   localStorage.setItem('data', JSON.stringify(storageTasks))
+  inputElement.focus()
 }
 
 addButton.addEventListener('click', addTask)
@@ -88,9 +85,3 @@ inputElement.addEventListener('keypress', (evt) => {
 if(loadStoragedData) {
   loadFromStorage()
 }
-
-
-/*
-  Deletar os dados, ao clicar no botao delete a li que é pai do respectivo botao deve ser apagada
-  e a task e sua taskkey devem ser removidaas do localstorage
-*/
